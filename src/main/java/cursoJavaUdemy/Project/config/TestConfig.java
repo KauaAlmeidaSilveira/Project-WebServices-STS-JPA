@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import cursoJavaUdemy.Project.entities.Category;
 import cursoJavaUdemy.Project.entities.Order;
+import cursoJavaUdemy.Project.entities.OrderItem;
 import cursoJavaUdemy.Project.entities.Product;
 import cursoJavaUdemy.Project.entities.User;
 import cursoJavaUdemy.Project.entities.enums.OrderStatus;
 import cursoJavaUdemy.Project.repositories.CategoryRepository;
+import cursoJavaUdemy.Project.repositories.OrderItemRepository;
 import cursoJavaUdemy.Project.repositories.OrderRepository;
 import cursoJavaUdemy.Project.repositories.ProductRepository;
 import cursoJavaUdemy.Project.repositories.UserRepository;
@@ -41,6 +43,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -67,13 +72,15 @@ public class TestConfig implements CommandLineRunner{
 		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "", cat3);
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "", cat2); 
 
-	
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
-		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
-		
-		
 		/*
 		REALIZANDO AS ASSOCIAÇÕES DE PRODUTOS COM SUAS DEVIDAS CATEGORIAS
 		
@@ -85,8 +92,8 @@ public class TestConfig implements CommandLineRunner{
 		p5.getCategories().add(cat2);
 		
 		*/
-		
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 	
 	
