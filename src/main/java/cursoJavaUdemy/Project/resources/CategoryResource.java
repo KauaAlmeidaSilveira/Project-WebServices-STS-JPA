@@ -15,7 +15,7 @@ import cursoJavaUdemy.Project.services.CategoryService;
  
 //O @RestController serve para indicar que esta classe é implementada por um controlador rest
 @RestController
-@RequestMapping(value="/categorys")
+@RequestMapping(value="/categories")
 public class CategoryResource {
 	
 	@Autowired

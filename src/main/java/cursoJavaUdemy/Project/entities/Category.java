@@ -1,16 +1,18 @@
 package cursoJavaUdemy.Project.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_category")
@@ -22,8 +24,16 @@ public class Category implements Serializable{
 	private Long id;
 	private String name;
 	
-	@Transient
-	private Set<Product> products = new HashSet<>();
+	/* 
+	ESSE TIPO DE MAPEAMENTO SERVIRIA CASO FOSSE UMA RELAÇÃO DE MUITOS PRODUTOS PARA MUITAS CATEGORIAS 
+	--@ManyToMany(mappedBy = "categories")
+	*/
+	
+	//JsonIgnore impede de gerar um looping no momento da requisição das categorias no postman
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "categories")
+	private List<Product> products = new ArrayList<>();
 
 	public Category() {
 		
@@ -51,7 +61,7 @@ public class Category implements Serializable{
 		this.name = name;
 	}
 	
-	public Set<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
