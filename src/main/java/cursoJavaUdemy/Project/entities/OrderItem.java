@@ -28,10 +28,11 @@ public class OrderItem implements Serializable{
 
 	public OrderItem(Order order, Product product,Integer quantity, Double price) {
 		super();
-		id.setOrder(order);
-		id.setProduct(product);
 		this.quantity = quantity;
 		this.price = price;
+		id.setOrder(order);
+		id.setProduct(product);
+		
 	}
 
 	public Integer getQuantity() {
@@ -67,6 +68,11 @@ public class OrderItem implements Serializable{
 		id.setProduct(product);
 	}
 
+	public Double getSubTotal() {
+		return price*quantity;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
