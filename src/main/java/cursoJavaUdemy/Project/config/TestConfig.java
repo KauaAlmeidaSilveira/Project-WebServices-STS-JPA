@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import cursoJavaUdemy.Project.entities.Category;
 import cursoJavaUdemy.Project.entities.Order;
 import cursoJavaUdemy.Project.entities.OrderItem;
+import cursoJavaUdemy.Project.entities.Payment;
 import cursoJavaUdemy.Project.entities.Product;
 import cursoJavaUdemy.Project.entities.User;
 import cursoJavaUdemy.Project.entities.enums.OrderStatus;
@@ -77,6 +78,10 @@ public class TestConfig implements CommandLineRunner{
 		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		/*  NO CASO DO PAYMENT NÃO É NECESSARIO UTILIZAR O REPOSITORY, SIMPLESMENTE SETAMOS O PAYMENT NO ORDER
+		E SALVAMOS O ORDER NOVAMENTE  */
+		o1.setPayment(pay1);
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
@@ -94,6 +99,8 @@ public class TestConfig implements CommandLineRunner{
 		*/
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		orderRepository.save(o1);
+		
 	}
 	
 	
